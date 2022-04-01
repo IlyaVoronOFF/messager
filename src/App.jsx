@@ -1,20 +1,51 @@
 import logo from './logo.svg';
 import './App.css';
-import { Message } from './components/Message/Message';
+import { Form } from './components/Form/Form';
+import { MessageList } from "./components/MessageList/MessageList";
+import { useEffect, useState } from 'react';
 
-const placeholder = 'Ваша почта';
+export default function App({ name }) {
 
-function App({ name }) {
+    const msgList = [
+        {
+            author: 'Messenger',
+            text: name + ', добро пожаловать в чат!'
+        }
+    ];
+    
+    const [msgArr, setMessages] = useState(msgList);
+
+    const addMessage = (text) => {
+        setMessages([...msgArr, {author: name, text: text}]);
+    }
+
+    useEffect(() => {
+        let willUnmount;
+
+        if (msgArr.length && msgArr[msgArr.length - 1].author === name) {
+            willUnmount = setTimeout(() => {
+                setMessages([...msgArr, {author: 'Robot', text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"}]);
+            }, 1000);
+        }
+        return () => {
+            clearTimeout(willUnmount);
+        }
+    },[msgArr, name]);
+    
     return (
         <div className="App" >
             <header className = "App-header" >
                 <img src={logo} className="App-logo" alt="logo" />
-                <h3>Привет, {name}!</h3>
-                <p>Подпишись на новости!</p>
-                <Message placeholder={placeholder}/>
+                <div className='content-wrapper'>
+                    <div className="content">
+                        <h3>MESSENGER</h3>
+                        <div className='frame-msg'>
+                            <MessageList msgList={msgArr} name={ name }/>
+                            <Form onSubmit={ addMessage }/>
+                        </div>
+                    </div>
+                </div>
             </header>
         </div>
     );
 }
-
-export default App;

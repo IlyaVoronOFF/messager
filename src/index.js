@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-const myName = 'Ilya';
+const myName = 'Илья';
 
 ReactDOM.render( < React.StrictMode >
     <

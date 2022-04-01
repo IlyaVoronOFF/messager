@@ -1,0 +1,80 @@
+.msg-list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #2196f305;
+    border: 1px solid #cfc9c9;
+    border-radius: 15px;
+    box-shadow: 0px 0px 16px 0px #96d6f8 inset;
+    padding: 15px 0;
+    margin: 0 0 35px 0;
+    max-height: 365px;
+    overflow-x: hidden;
+    div {
+        display: inherit;
+        flex-direction: inherit;
+        &::-webkit-scrollbar {
+            width: 12px;
+            /* ширина scrollbar */
+        }
+        &::-webkit-scrollbar-track {
+            background: #2196f31c;
+            border-radius: 5px;
+            /* цвет дорожки */
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #2196f347;
+            /* цвет плашки */
+            border-radius: 20px;
+            /* закругления плашки */
+        }
+    }
+    .msg-post-left {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: flex-start;
+        width: fit-content;
+        max-width: 60%;
+        background-color: #97D6F8;
+        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 40%);
+        padding: 15px;
+        margin: 10px;
+        border-radius: 25px 15px 15px 0;
+        font-size: 16px;
+        transition: 0.3s;
+        span {
+            font-weight: bold;
+        }
+        p {
+            margin: auto;
+            overflow-wrap: anywhere;
+            hyphens: auto;
+            text-align: start;
+        }
+    }
+    .msg-post-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        align-self: flex-end;
+        width: fit-content;
+        max-width: 60%;
+        background-color: #08df69;
+        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 40%);
+        padding: 15px;
+        margin: 10px;
+        border-radius: 15px 25px 0 15px;
+        font-size: 16px;
+        transition: 0.3s;
+        span {
+            font-weight: bold;
+        }
+        p {
+            margin: auto;
+            overflow-wrap: anywhere;
+            hyphens: auto;
+            text-align: start;
+        }
+    }
+}
