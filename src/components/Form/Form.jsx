@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './Form.style.scss';
 
 export function Form({ onSubmit }) {
   const [value, setValue] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  },[]);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -16,40 +21,8 @@ export function Form({ onSubmit }) {
 
   return (
     <form onSubmit={handleSubmit}>
-        <input type='text' placeholder='Введите текст сообщения...' value={value} onChange={handleChange} required></input>
+        <input type='text' placeholder='Введите текст сообщения...' value={value} onChange={handleChange} ref={inputRef} required></input>
       <button type="submit">Отправить</button>
     </form>
   )
 }
-
-// export class Message extends React.Component {
-//   constructor(props) {
-//      super(props);
-//      this.placeholder = this.props.placeholder;
-//     this.state = {value: ''};
-
-//     this.handleChange = this.handleChange.bind(this);
-//     this.handleSubmit = this.handleSubmit.bind(this);
-//   }
-
-//   handleChange(event) {
-//     this.setState({value: event.target.value});
-//   }
-
-//   handleSubmit(event) {
-//     alert('Отправленный email: ' + this.state.value);
-//     event.preventDefault();
-//   }
-
-//   render() {
-//     return (
-//       <form onSubmit={this.handleSubmit}>
-//         <label>
-//           Email<span>*</span>:
-//           </label>
-//           <input type="email" placeholder={this.placeholder} value={this.state.value} onChange={this.handleChange} required/>
-//         <button type="submit" >Отправить</button>
-//       </form>
-//     );
-//   }
-// }

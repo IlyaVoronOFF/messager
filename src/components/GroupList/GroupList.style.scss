@@ -1,15 +1,6 @@
-.msg-list {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #2196f305;
-    border: 1px solid #cfc9c9;
-    border-radius: 15px;
-    box-shadow: 0px 0px 16px 0px #96d6f8 inset;
-    padding: 15px 0;
-    margin: 0 0 35px 0;
-    max-height: 365px;
-    overflow-x: hidden;
+.grp-list {
+    padding: 5px;
+    max-height: inherit;
     div {
         display: inherit;
         flex-direction: inherit;

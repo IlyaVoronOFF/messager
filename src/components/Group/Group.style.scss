@@ -1,0 +1,11 @@
+.MuiListItem-root {
+    transition: 0.3s;
+}
+
+.MuiListItem-root:hover {
+    background-color: #97D6F8;
+}
+
+.MuiListItem-root:active {
+    background-color: #08df69;
+}
