@@ -6,9 +6,7 @@
     .grp-list {
         padding: 5px;
         max-height: 450px;
-        .list-item {
-            display: inherit;
-            flex-direction: inherit;
+        div {
             &::-webkit-scrollbar {
                 width: 12px;
                 /* ширина scrollbar */
@@ -24,6 +22,10 @@
                 border-radius: 20px;
                 /* закругления плашки */
             }
+        }
+        .list-item {
+            display: inherit;
+            flex-direction: inherit;
         }
     }
 }

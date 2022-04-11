@@ -5,6 +5,10 @@ import { Group } from "../Group/Group";
 import './GroupList.style.scss';
 
 export function GroupList({ grpList, addItem, delItem }) {
+
+     const handleClick = () => {
+        addItem();
+  }
    
    return (
       <>
@@ -17,7 +21,7 @@ export function GroupList({ grpList, addItem, delItem }) {
                      )}
                   </List>
                   <ListItem  component="div" className="list-item" disablePadding>
-                     <ListItemButton onClick={addItem} style={{backgroundColor: '#96d6f8a1'}}>
+                     <ListItemButton onClick={handleClick} style={{backgroundColor: '#96d6f8a1'}}>
                         <ListItemText primary='➕' style={{ textAlign: 'center' }}/>
                      </ListItemButton>
                   </ListItem>

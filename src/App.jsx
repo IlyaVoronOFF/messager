@@ -4,7 +4,7 @@ import { FormControlLabel, ThemeProvider } from '@mui/material';
 import { MaterialUISwitch } from './components/SwitchTheme/SwitchTheme';
 import { useState } from 'react';
 import { theme } from './components/Theme/Theme';
-import { NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { NavLink, Route, Routes } from 'react-router-dom';
 import { Account } from './pages/Account/Account';
 import { Home } from './pages/Home/Home';
 import { Chat } from './pages/Chat/Chat';
@@ -41,15 +41,14 @@ export default function App({ userName }) {
     
     const [styleTheme, setStyleTheme] = useState({ id: 0, style: theme.palette.primary.main });
     const [arrGroups, setGroups] = useState(listGrpMsg);
-    const { id } = useParams();
    
     const addItem = () => {
         setGroups([...arrGroups, { id: arrGroups.length, grpName: `Группа ${++arrGroups.length}`, [arrGroups.length - 1]: [] }])
        console.log(arrGroups)
     }
     
-    const delItem = () => {
-        setGroups([...arrGroups.slice(0, [id]), ...arrGroups.slice([id] + 1)]);
+    const delItem = (index) => {
+        setGroups([...arrGroups.slice(0, index), ...arrGroups.slice(index + 1)]);
         console.log(arrGroups)
     }
 
