@@ -9,3 +9,12 @@
 .MuiListItem-root:active {
     background-color: #08df69;
 }
+
+.grp-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.btn-del {
+    width: 5%;
+}

@@ -1,47 +1,56 @@
 import logo from './logo.svg';
 import './App.css';
-import { theme } from "./components/Theme/Theme";
-import { Form } from './components/Form/Form';
-import { MessageList } from "./components/MessageList/MessageList";
-import { useEffect, useState } from 'react';
-import { GroupList } from './components/GroupList/GroupList';
 import { FormControlLabel, ThemeProvider } from '@mui/material';
 import { MaterialUISwitch } from './components/SwitchTheme/SwitchTheme';
+import { useState } from 'react';
+import { theme } from './components/Theme/Theme';
+import { NavLink, Route, Routes, useParams } from 'react-router-dom';
+import { Account } from './pages/Account/Account';
+import { Home } from './pages/Home/Home';
+import { Chat } from './pages/Chat/Chat';
+import { GroupList } from './components/GroupList/GroupList';
+import { Route404 } from './pages/Route404/Route404';
 
-export default function App({ name }) {
+export default function App({ userName }) {
 
-    const msgList = [
-        {
-            id: 0,
-            author: 'Messenger',
-            text: name + ', добро пожаловать в чат!'
-        }
-    ];
-
-    const grpArr = [
-        {
+    const listGrpMsg = [{
             id: 0,
             grpName: 'Группа 1',
+            0: [{
+                id: 0,
+                author: 'Messenger',
+                text: userName + ', добро пожаловать в чат!'
+            }]
         },
         {
             id: 1,
             grpName: 'Группа 2',
+            1: [],
         },
         {
             id: 2,
             grpName: 'Группа 3',
+            2: [],
         },
         {
             id: 3,
             grpName: 'Группа 4',
+            3: [],
         },
-    ];
+   ];
     
-    const [msgArr, setMessages] = useState(msgList);
     const [styleTheme, setStyleTheme] = useState({ id: 0, style: theme.palette.primary.main });
-
-    const addMessage = (text) => {
-        setMessages([...msgArr, { id: msgArr.length, author: name, text: text }]);
+    const [arrGroups, setGroups] = useState(listGrpMsg);
+    const { id } = useParams();
+   
+    const addItem = () => {
+        setGroups([...arrGroups, { id: arrGroups.length, grpName: `Группа ${++arrGroups.length}`, [arrGroups.length - 1]: [] }])
+       console.log(arrGroups)
+    }
+    
+    const delItem = () => {
+        setGroups([...arrGroups.slice(0, [id]), ...arrGroups.slice([id] + 1)]);
+        console.log(arrGroups)
     }
 
     const toggleTheme = () => {
@@ -52,19 +61,6 @@ export default function App({ name }) {
         }
     }
 
-    useEffect(() => {
-        let willUnmount;
-
-        if (msgArr.length && msgArr[msgArr.length - 1].author === name) {
-            willUnmount = setTimeout(() => {
-                setMessages([...msgArr, {id: msgArr.length, author: 'Robot', text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"}]);
-            }, 1000);
-        }
-        return () => {
-            clearTimeout(willUnmount);
-        }
-    }, [msgArr, name]);
-    
     return (
         <div className="App" >
             <header className = "App-header" >
@@ -76,17 +72,37 @@ export default function App({ name }) {
                                 <h3>MESSENGER</h3>
                                 <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} onClick={ toggleTheme}/>
                             </div>
-                        <div className="container">
-                            <div className="group-container">
-                                <GroupList grpList={ grpArr}/>
+                            <div className="nav">
+                                <ul>
+                                    <li>
+                                        <NavLink to='/' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                            Главная
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/chat' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                            Чаты
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/account' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                            Профиль
+                                        </NavLink>
+                                    </li>
+                                </ul>
                             </div>
-                            <div className='frame-msg'>
-                                <MessageList msgList={msgArr} name={ name } />
-                                <Form onSubmit={ addMessage }/>
+                            <div className="container">
+                                <Routes>
+                                    <Route path='/' element={<Home />} />
+                                    <Route path='/chat' element={<GroupList grpList={arrGroups} addItem={addItem} delItem={ delItem}/>}>
+                                        <Route path=':id' element={<Chat initMessages={arrGroups} name={userName} />} />
+                                    </Route>
+                                    <Route path='/account' element={<Account />} />
+                                    <Route path='*' element={<Route404/>}/>
+                                </Routes>
                             </div>
                         </div>
                     </div>
-                </div>
                 </ThemeProvider>
             </header>
         </div>

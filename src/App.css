@@ -40,22 +40,16 @@ h3 {
     box-shadow: 0px 0px 50px 0px rgb(0 0 0);
 }
 
-.head {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-}
-
-label>.MuiFormControlLabel-root {
-    width: 0%;
-    display: flex;
-    justify-content: flex-end;
-}
-
 .content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+}
+
+.head {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
 }
 
 .container {
@@ -63,17 +57,10 @@ label>.MuiFormControlLabel-root {
     justify-content: space-between;
 }
 
-.group-container {
-    width: 25%;
-    border: 1px solid #62dafc;
-    border-radius: 15px;
-    box-shadow: 0px 0px 20px 0px #96d6f8;
-}
-
-.frame-msg {
+label>.MuiFormControlLabel-root {
+    width: 0%;
     display: flex;
-    flex-direction: column;
-    width: 70%;
+    justify-content: flex-end;
 }
 
 .App-link {
