@@ -19,7 +19,7 @@ export function Chat({ initMessages, name }) {
 
     useEffect(() => {
         let willUnmount;
-        const lastMessage = msgArr[id][id]?.[msgArr[id][id]?.length - 1];
+        const lastMessage = msgArr[id]?.[id]?.[msgArr[id][id]?.length - 1];
 
         if (lastMessage?.author === name) {
             willUnmount = setTimeout(() => {
@@ -40,6 +40,6 @@ export function Chat({ initMessages, name }) {
                     <MessageList msgList={msgArr[id][id]} name={ name } />
                     <Form onSubmit={ sendMessage }/>
                 </>}
-            </div>
+        </div>
         );
     }

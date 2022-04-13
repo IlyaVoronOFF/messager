@@ -60,10 +60,12 @@ export default function App({ userName }) {
         }
     }
 
+    const classActive = ({ isActive }) => (isActive ? 'active' : null);
+
     return (
-        <div className="App" >
-            <header className = "App-header" >
-                <img src={logo} className="App-logo" alt="logo" />
+        <div className="app" >
+            <header className = "app-header" >
+                <img src={logo} className="app-logo" alt="logo" />
                 <ThemeProvider theme={theme}>
                     <div className='content-wrapper' style={{ backgroundColor: styleTheme.style }}>
                         <div className="content">
@@ -74,17 +76,17 @@ export default function App({ userName }) {
                             <div className="nav">
                                 <ul>
                                     <li>
-                                        <NavLink to='/' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                        <NavLink to='/' className={classActive}>
                                             Главная
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/chat' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                        <NavLink to='/chat' >
                                             Чаты
                                         </NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/account' style={({isActive})=>({color: isActive ? 'green' : 'blue'})}>
+                                        <NavLink to='/account' >
                                             Профиль
                                         </NavLink>
                                     </li>
