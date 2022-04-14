@@ -10,6 +10,8 @@ import { Home } from './pages/Home/Home';
 import { Chat } from './pages/Chat/Chat';
 import { GroupList } from './components/GroupList/GroupList';
 import { Route404 } from './pages/Route404/Route404';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
 export default function App({ userName }) {
 
@@ -63,7 +65,8 @@ export default function App({ userName }) {
     const classActive = ({ isActive }) => (isActive ? 'active' : null);
 
     return (
-        <div className="app" >
+        <Provider store={store}>
+            <div className="app" >
             <header className = "app-header" >
                 <img src={logo} className="app-logo" alt="logo" />
                 <ThemeProvider theme={theme}>
@@ -107,5 +110,6 @@ export default function App({ userName }) {
                 </ThemeProvider>
             </header>
         </div>
+        </Provider>
     );
 }
