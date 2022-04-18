@@ -1,43 +1,57 @@
 import './Chat.style.scss';
-import { useEffect, useState } from "react";
 import { MessageList } from '../../components/MessageList/MessageList';
 import { Form } from '../../components/Form/Form';
 import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { selectMsg } from '../../store/message/selectors';
+import { addItemMsg } from '../../store/message/actions';
+import { useEffect } from 'react';
 
-export function Chat({ initMessages, name }) {
+export function Chat({ name }) {
 
-    const [msgArr, setMessages] = useState(initMessages);
     const { id } = useParams();
+    const messages = useSelector(selectMsg);
+    const dispatch = useDispatch();
 
     const addMessage = (newMsg) => {
-        setMessages({ ...msgArr, [id]: { [id]: [...msgArr[id][id], newMsg] } });
+        dispatch(addItemMsg(newMsg, id));
     }
 
     const sendMessage = (text) => {
-        addMessage({ id: msgArr[id][id].length, author: name, text });
+        const newMsg = {
+                id: messages[id].length,
+                author: name,
+                text};
+
+        addMessage(newMsg);
     }
 
     useEffect(() => {
         let willUnmount;
-        const lastMessage = msgArr[id]?.[id]?.[msgArr[id][id]?.length - 1];
+        const lastMessage = messages[id]?.[messages[id]?.length - 1];
+        const robotMsg = {
+            id: messages[id]?.length,
+            author: 'Robot',
+            text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
+        }
 
         if (lastMessage?.author === name) {
             willUnmount = setTimeout(() => {
-                addMessage({ id: msgArr[id][id].length, author: 'Robot', text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞" });
+                addMessage(robotMsg);
             }, 1000);
         }
         return () => {
             clearTimeout(willUnmount);
         }
-    }, [msgArr, name]);
+    }, [messages, name]);
 
     return (
         <div className='frame-msg'>
-            {!msgArr[id] ?
+            {!messages[id] ?
                 <h4>Такой группы нет</h4>
                 : 
                 <>
-                    <MessageList msgList={msgArr[id][id]} name={ name } />
+                    <MessageList msgList={messages[id]} name={ name } />
                     <Form onSubmit={ sendMessage }/>
                 </>}
         </div>

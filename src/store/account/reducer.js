@@ -1,5 +1,5 @@
-import { MYNAME } from "../CONSTANTS";
-import { TOGGLE_CHECKBOX } from "./actions";
+import { MYNAME } from "../constants";
+import { SET_NAME, TOGGLE_CHECKBOX } from "./actions";
 
 const initialState = {
     showName: false,
@@ -13,6 +13,13 @@ export function accountReducer(state = initialState, action) {
                 return {
                     ...state,
                     showName: !state.showName,
+                }
+            }
+        case SET_NAME:
+            {
+                return {
+                    ...state,
+                    name: action.payload,
                 }
             }
         default:

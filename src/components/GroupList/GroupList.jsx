@@ -1,14 +1,35 @@
 import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import ScrollableFeed from "react-scrollable-feed";
+import { selectGrp } from "../../store/group/selectors";
+import { addItemGroup, delItemGroup } from "../../store/group/actions";
 import { Group } from "../Group/Group";
 import './GroupList.style.scss';
+import { addArrMsg, delArrMsg } from "../../store/message/actions";
 
-export function GroupList({ grpList, addItem, delItem }) {
+export function GroupList() {
 
-     const handleClick = () => {
-        addItem();
-  }
+   const group = useSelector(selectGrp, shallowEqual);
+   const dispatch = useDispatch();
+
+    const addItem = (newGrp) => {
+       dispatch(addItemGroup(newGrp))
+       dispatch(addArrMsg(newGrp.id))
+    }
+    
+    const delItem = (index) => {
+       dispatch(delItemGroup(index))
+       dispatch(delArrMsg(index))
+    }
+
+   const handleClick = () => {
+        const newGroup = {
+           id: Date.now(),
+           grpName: `Группа ${group.length + 1}`
+        }
+        addItem(newGroup);
+   }
    
    return (
       <>
@@ -16,7 +37,7 @@ export function GroupList({ grpList, addItem, delItem }) {
             <div className="grp-list">
                <ScrollableFeed>
                   <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-                     {grpList.map((g) =>
+                     {group.map((g) =>
                         <Group key={g.id} grpId={g.id} grpName={g.grpName} delItem={ delItem}/>
                      )}
                   </List>
