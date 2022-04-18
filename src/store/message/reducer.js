@@ -11,20 +11,21 @@ const initialMsg = {
     3: [],
 };
 
-export function messageReducer(state = initialMsg, { type, payload, idGrp }) {
+export function messageReducer(state = initialMsg, { type, payload }) {
     switch (type) {
         case ADD_MSG:
             {
-                return {...state, [idGrp]: [...state[idGrp], payload] }
+                return {...state, [payload.id]: [...state[payload.id], payload.newMsg] }
             }
         case ADD_ARR_MSG:
             {
-                return {...state, [idGrp]: [] }
+                return {...state, [payload]: [] }
             }
         case DEL_ARR_MSG:
             {
-                delete state[idGrp];
-                return state
+                const obj = {...state };
+                delete obj[payload];
+                return obj
             }
         default:
             return state;

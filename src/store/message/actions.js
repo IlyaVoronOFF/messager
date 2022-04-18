@@ -4,16 +4,18 @@ export const ADD_MSG = 'MESSAGE::ADD_MSG';
 
 export const addArrMsg = (id) => ({
     type: ADD_ARR_MSG,
-    idGrp: id,
+    payload: id,
 })
 
 export const delArrMsg = (id) => ({
     type: DEL_ARR_MSG,
-    idGrp: id,
+    payload: id,
 })
 
 export const addItemMsg = (newMsg, id) => ({
     type: ADD_MSG,
-    payload: newMsg,
-    idGrp: id,
+    payload: {
+        newMsg,
+        id
+    }
 })
