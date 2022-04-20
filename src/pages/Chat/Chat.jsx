@@ -4,8 +4,8 @@ import { Form } from '../../components/Form/Form';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectMsgByGrpId } from '../../store/message/selectors';
-import { addItemMsg } from '../../store/message/actions';
-import { useEffect, useMemo } from 'react';
+import { addMsgReply } from '../../store/message/actions';
+import { useMemo } from 'react';
 
 export function Chat({ name }) {
 
@@ -15,7 +15,7 @@ export function Chat({ name }) {
     const dispatch = useDispatch();
 
     const addMessage = (newMsg) => {
-        dispatch(addItemMsg(newMsg, id));
+        dispatch(addMsgReply(newMsg, id, name));
     }
 
     const sendMessage = (text) => {
@@ -27,24 +27,24 @@ export function Chat({ name }) {
         addMessage(newMsg);
     }
 
-    useEffect(() => {
-        let willUnmount;
-        const lastMessage = messages?.[messages?.length - 1];
-        const robotMsg = {
-            id: messages?.length,
-            author: 'Robot',
-            text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
-        }
+    // useEffect(() => {
+    //     let willUnmount;
+    //     const lastMessage = messages?.[messages?.length - 1];
+    //     const robotMsg = {
+    //         id: messages?.length,
+    //         author: 'Robot',
+    //         text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
+    //     }
 
-        if (lastMessage?.author === name) {
-            willUnmount = setTimeout(() => {
-                addMessage(robotMsg);
-            }, 1000);
-        }
-        return () => {
-            clearTimeout(willUnmount);
-        }
-    }, [messages, name]);
+    //     if (lastMessage?.author === name) {
+    //         willUnmount = setTimeout(() => {
+    //             addMessage(robotMsg);
+    //         }, 1000);
+    //     }
+    //     return () => {
+    //         clearTimeout(willUnmount);
+    //     }
+    // }, [messages, name]);
 
     return (
         <div className='frame-msg'>

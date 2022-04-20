@@ -19,3 +19,25 @@ export const addItemMsg = (newMsg, id) => ({
         id
     }
 })
+
+let willUnmount;
+
+export const addMsgReply = (newMsg, id, name) => (dispatch, getState) => {
+    // const state = getState();
+    // console.log(state)
+
+    dispatch(addItemMsg(newMsg, id));
+
+    const robotMsg = {
+        id: Date.now(),
+        author: 'Robot',
+        text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
+    }
+
+    if (newMsg.author === name) {
+        clearTimeout(willUnmount);
+        willUnmount = setTimeout(() => {
+            dispatch(addItemMsg(robotMsg, id));
+        }, 1000);
+    }
+}
