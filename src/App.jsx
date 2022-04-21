@@ -10,6 +10,7 @@ import { Home } from './pages/Home/Home';
 import { Chat } from './pages/Chat/Chat';
 import { GroupList } from './components/GroupList/GroupList';
 import { Route404 } from './pages/Route404/Route404';
+import { News } from './pages/News/News';
 
 export default function App({ userName }) {
     
@@ -49,6 +50,11 @@ export default function App({ userName }) {
                                         </NavLink>
                                     </li>
                                     <li>
+                                        <NavLink to='/news' >
+                                            Новости
+                                        </NavLink>
+                                    </li>
+                                    <li>
                                         <NavLink to='/account' >
                                             Профиль
                                         </NavLink>
@@ -61,6 +67,7 @@ export default function App({ userName }) {
                                     <Route path='/chat' element={<GroupList />}>
                                         <Route path=':id' element={<Chat name={userName} />} />
                                     </Route>
+                                    <Route path='/news' element={<News />} />
                                     <Route path='/account' element={<Account />} />
                                     <Route path='*' element={<Route404/>}/>
                                 </Routes>

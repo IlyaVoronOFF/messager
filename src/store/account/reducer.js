@@ -1,4 +1,4 @@
-import { MYNAME } from "../constants";
+import { MYNAME } from "../../utils/constants";
 import { SET_NAME, TOGGLE_CHECKBOX } from "./actions";
 
 const initialState = {
