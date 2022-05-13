@@ -22,16 +22,14 @@ export const addItemMsg = (newMsg, id) => ({
 
 let willUnmount;
 
-export const addMsgReply = (newMsg, id, name) => (dispatch, getState) => {
-    // const state = getState();
-    // console.log(state)
-
+export const addMsgReply = (newMsg, id, name) => async(dispatch, getState) => {
+    //console.log(getState)
     dispatch(addItemMsg(newMsg, id));
 
     const robotMsg = {
         id: Date.now(),
-        author: 'Robot',
-        text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
+        author: 'Robot🤖',
+        text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🖖🌞🌞🌞🌞🌞🌞🌞",
     }
 
     if (newMsg.author === name) {

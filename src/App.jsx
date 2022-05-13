@@ -11,6 +11,7 @@ import { Chat } from './pages/Chat/Chat';
 import { GroupList } from './components/GroupList/GroupList';
 import { Route404 } from './pages/Route404/Route404';
 import { News } from './pages/News/News';
+import { classActive } from './utils/constants';
 
 export default function App({ userName }) {
     
@@ -24,8 +25,6 @@ export default function App({ userName }) {
         }
     }
 
-    const classActive = ({ isActive }) => (isActive ? 'active' : null);
-
     return (
             <div className="app" >
             <header className = "app-header" >
@@ -33,9 +32,9 @@ export default function App({ userName }) {
                 <ThemeProvider theme={theme}>
                     <div className='content-wrapper' style={{ backgroundColor: styleTheme.style }}>
                         <div className="content">
+                            <FormControlLabel id='switchTheme' control={<MaterialUISwitch sx={{ m: 1 }} />} onClick={ toggleTheme}/>
                             <div className="head">
-                                <h3>MESSENGER</h3>
-                                <FormControlLabel control={<MaterialUISwitch sx={{ m: 1 }} />} onClick={ toggleTheme}/>
+                                <h2 className='title'>MESSENGER</h2>
                             </div>
                             <div className="nav">
                                 <ul>

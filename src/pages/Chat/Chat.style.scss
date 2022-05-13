@@ -2,4 +2,33 @@
     display: flex;
     flex-direction: column;
     width: 70%;
+    .head-name-grp {
+        display: flex;
+        justify-content: center;
+        text-transform: uppercase;
+        font-size: 20px;
+        border: 1px solid #62dafc;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px 0px #96d6f8;
+        margin-bottom: 10px;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    div {
+        &::-webkit-scrollbar {
+            width: 12px;
+            /* ширина scrollbar */
+        }
+        &::-webkit-scrollbar-track {
+            background: #2196f31c;
+            border-radius: 5px;
+            /* цвет дорожки */
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: #2196f347;
+            /* цвет плашки */
+            border-radius: 20px;
+            /* закругления плашки */
+        }
+    }
 }

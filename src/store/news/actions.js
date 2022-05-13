@@ -1,4 +1,4 @@
-import { apiUrl } from "../../utils/constants";
+import { apiUrlNews } from "../../utils/constants";
 
 export const GET_NEWS_REQ = 'NEWS::GET_NEWS_REQ';
 export const GET_NEWS_SUCC = 'NEWS::GET_NEWS_SUCC';
@@ -22,7 +22,11 @@ export const getNews = () => async(dispatch) => {
     try {
         dispatch(getNewsReq());
 
-        const response = await fetch(apiUrl);
+        const response = await fetch(apiUrlNews, {
+            'headers': {
+                'Content-type': 'application/json'
+            }
+        });
         if (!response.ok) {
             throw new Error(`Запрос не удался. Ошибка ${response.status}`);
         }

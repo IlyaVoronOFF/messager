@@ -1,4 +1,4 @@
-import { List, ListItem, ListItemButton, ListItemText } from "@mui/material";
+import { List, ListItemText } from "@mui/material";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { Outlet } from "react-router-dom";
 import ScrollableFeed from "react-scrollable-feed";
@@ -7,9 +7,10 @@ import { addItemGroup, delItemGroup } from "../../store/group/actions";
 import { Group } from "../Group/Group";
 import './GroupList.style.scss';
 import { addArrMsg, delArrMsg } from "../../store/message/actions";
+import { useState } from "react";
 
 export function GroupList() {
-
+   const [value, setValue] = useState('');
    const group = useSelector(selectGrp, shallowEqual);
    const dispatch = useDispatch();
 
@@ -21,32 +22,41 @@ export function GroupList() {
     const delItem = (index) => {
        dispatch(delItemGroup(index))
        dispatch(delArrMsg(index))
-    }
+   }
+   
+   const handleChange = (e) => {
+    setValue(e.target.value);
+  }
 
-   const handleClick = () => {
-        const newGroup = {
+   const handleSubmit = (e) => {
+      e.preventDefault();
+      const newGroup = {
            id: Date.now(),
-           grpName: `Группа ${group.length + 1}`
+           grpName: value
         }
-        addItem(newGroup);
+      addItem(newGroup);
+      setValue('');
    }
    
    return (
       <>
          <div className="group-container">
             <div className="grp-list">
-               <ScrollableFeed>
+               <ScrollableFeed id="scrollableFeed">
                   <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                      {group.map((g) =>
                         <Group key={g.id} grpId={g.id} grpName={g.grpName} delItem={ delItem}/>
                      )}
                   </List>
-                  <ListItem  component="div" className="list-item" disablePadding>
-                     <ListItemButton onClick={handleClick} style={{backgroundColor: '#96d6f8a1'}}>
-                        <ListItemText primary='➕' style={{ textAlign: 'center' }}/>
-                     </ListItemButton>
-                  </ListItem>
                </ScrollableFeed>
+            </div>
+            <div className="block-add-group">
+                     <form id="addGroup" onSubmit={handleSubmit}>
+                        <input type="text" placeholder='Имя группы...' value={value} onChange={handleChange} required/>
+                        <button className="btn-add-grp" type="submit">
+                           <ListItemText primary='➕' style={{ textAlign: 'center' }}/>
+                        </button>
+                     </form>
             </div>
          </div>
          <Outlet/>

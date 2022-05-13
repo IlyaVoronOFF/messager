@@ -1,14 +1,17 @@
 .group-container {
-    width: 25%;
-    border: 1px solid #62dafc;
-    border-radius: 15px;
-    box-shadow: 0px 0px 20px 0px #96d6f8;
     .grp-list {
+        border: 1px solid #62dafc;
+        border-radius: 15px;
+        box-shadow: 0px 0px 20px 0px #96d6f8;
         padding: 5px;
-        max-height: 450px;
+        max-height: 400px;
+        margin-bottom: 25px;
+        >div {
+            border-radius: 15px;
+        }
         div {
             &::-webkit-scrollbar {
-                width: 12px;
+                width: 6px;
                 /* ширина scrollbar */
             }
             &::-webkit-scrollbar-track {
@@ -23,9 +26,28 @@
                 /* закругления плашки */
             }
         }
-        .list-item {
-            display: inherit;
-            flex-direction: inherit;
+    }
+    #addGroup {
+        display: flex;
+        flex-direction: column;
+        height: auto;
+        border-radius: 15px;
+        input {
+            width: auto;
+            height: 45px;
+            border-radius: 15px 15px 0 0;
+        }
+        .btn-add-grp {
+            border-radius: 0 0 15px 15px;
+            width: auto;
+            padding: 5px 0;
+            transition: 0.3s;
+        }
+        .MuiListItemButton-root {
+            background-color: #97D6F8;
+            &:hover {
+                background-color: #08df69;
+            }
         }
     }
 }

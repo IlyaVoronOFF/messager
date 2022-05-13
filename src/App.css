@@ -1,8 +1,15 @@
-h3 {
+h1,
+h2 {
     color: #62dafb;
     text-transform: uppercase;
-    margin-top: 0;
     width: 100%;
+}
+
+h5 {
+    color: #62dafb;
+    text-transform: uppercase;
+    width: 100%;
+    margin: 10px 0;
 }
 
 a {
@@ -61,15 +68,20 @@ a {
     align-items: baseline;
 }
 
+.title {
+    margin-top: 0;
+}
+
 .container {
     display: flex;
     justify-content: space-between;
 }
 
-label>.MuiFormControlLabel-root {
-    width: 0%;
+#switchTheme {
     display: flex;
-    justify-content: flex-end;
+    height: 0;
+    justify-content: end;
+    align-items: start;
 }
 
 .App-link {

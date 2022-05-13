@@ -13,7 +13,7 @@ import { newsReducer } from "./news/reducer";
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['account', 'news'],
+    //blacklist: ['account', 'news'],
     //stateReconciler: hardSet
 }
 
@@ -28,7 +28,8 @@ const rootReducer = combineReducers({
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__COMPOSE__ || compose;
+const composeEnhancers = (typeof window !== 'undefined' &&
+    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
 
 export const store = createStore(
     persistedReducer,

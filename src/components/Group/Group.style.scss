@@ -1,4 +1,6 @@
 .MuiListItem-root {
+    max-width: 180px;
+    border-bottom: 1px solid #96d6f8;
     transition: 0.3s;
 }
 
@@ -6,15 +8,23 @@
     background-color: #97D6F8;
 }
 
-.MuiListItem-root:active {
+.MuiListItem-root .btn-item .MuiListItem-root {
     background-color: #08df69;
+}
+
+.MuiTypography-root {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.btn-item {
+    width: 70%;
+    padding: 5px 10px;
+    transition: 0.3s;
 }
 
 .grp-item {
     display: flex;
     flex-direction: row;
-}
-
-.btn-del {
-    width: 5%;
 }

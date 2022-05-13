@@ -3,13 +3,15 @@ import { MessageList } from '../../components/MessageList/MessageList';
 import { Form } from '../../components/Form/Form';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectMsgByGrpId } from '../../store/message/selectors';
+import { selectGrpNameByGrpId, selectMsgByGrpId } from '../../store/message/selectors';
 import { addMsgReply } from '../../store/message/actions';
 import { useMemo } from 'react';
 
 export function Chat({ name }) {
 
     const { id } = useParams();
+    const getGrp = useMemo(() => selectGrpNameByGrpId(id), [id])
+    const getGrpName = useSelector(getGrp);
     const getMsg = useMemo(()=>selectMsgByGrpId(id),[id])
     const messages = useSelector(getMsg);
     const dispatch = useDispatch();
@@ -23,7 +25,6 @@ export function Chat({ name }) {
                 id: messages.length,
                 author: name,
                 text};
-
         addMessage(newMsg);
     }
 
@@ -52,6 +53,9 @@ export function Chat({ name }) {
                 <h4>Такой группы нет</h4>
                 : 
                 <>
+                    <div className="head-name-grp">
+                        <h5>{getGrpName?.grpName}</h5>
+                    </div>
                     <MessageList msgList={messages} name={ name } />
                     <Form onSubmit={ sendMessage }/>
                 </>}
