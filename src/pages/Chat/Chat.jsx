@@ -4,48 +4,40 @@ import { Form } from '../../components/Form/Form';
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectGrpNameByGrpId, selectMsgByGrpId } from '../../store/message/selectors';
-import { addMsgReply } from '../../store/message/actions';
-import { useMemo } from 'react';
+import { addMsgReply, initArrMsgTrack, stopArrMsgTrack } from '../../store/message/actions';
+import { useEffect, useMemo } from 'react';
+import { selectName } from '../../store/account/selectors';
+import { auth } from '../../services/firebase';
 
-export function Chat({ name }) {
+export function Chat() {
 
     const { id } = useParams();
     const getGrp = useMemo(() => selectGrpNameByGrpId(id), [id])
     const getGrpName = useSelector(getGrp);
     const getMsg = useMemo(()=>selectMsgByGrpId(id),[id])
     const messages = useSelector(getMsg);
+    const user = useSelector(selectName);
     const dispatch = useDispatch();
 
     const addMessage = (newMsg) => {
-        dispatch(addMsgReply(newMsg, id, name));
+        dispatch(addMsgReply(newMsg, id, user));
     }
 
     const sendMessage = (text) => {
         const newMsg = {
-                id: messages.length,
-                author: name,
+                id: Date.now(),
+                author: user,
                 text};
         addMessage(newMsg);
     }
 
-    // useEffect(() => {
-    //     let willUnmount;
-    //     const lastMessage = messages?.[messages?.length - 1];
-    //     const robotMsg = {
-    //         id: messages?.length,
-    //         author: 'Robot',
-    //         text: "Привет, " + name + "! Я добрый бот. Чем могу тебе помочь? 🙂🤖🖖🌞🌞🌞🌞🌞🌞🌞"
-    //     }
+    useEffect(() => {
+        dispatch(initArrMsgTrack(id));
 
-    //     if (lastMessage?.author === name) {
-    //         willUnmount = setTimeout(() => {
-    //             addMessage(robotMsg);
-    //         }, 1000);
-    //     }
-    //     return () => {
-    //         clearTimeout(willUnmount);
-    //     }
-    // }, [messages, name]);
+        return () => {
+            dispatch(stopArrMsgTrack());
+        }
+    },[dispatch, id])
 
     return (
         <div className='frame-msg'>
@@ -56,8 +48,8 @@ export function Chat({ name }) {
                     <div className="head-name-grp">
                         <h5>{getGrpName?.grpName}</h5>
                     </div>
-                    <MessageList msgList={messages} name={ name } />
-                    <Form onSubmit={ sendMessage }/>
+                    <MessageList msgList={messages} name={ user.name } />
+                    {auth?.currentUser?.uid && <Form onSubmit={sendMessage} />}
                 </>}
         </div>
         );

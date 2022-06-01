@@ -1,8 +1,8 @@
 import './Message.style.scss';
 
-export function Message({ author, text, meName }) {
+export function Message({ author, text }) {
    return (
-      <div className={author !== meName ? 'msg-post-left' : 'msg-post-right'}>
+      <div className={author === 'Robot🤖' ? 'msg-post-left' : 'msg-post-right'}>
            <span>{ author}</span>
            <p>{ text}</p>
       </div>

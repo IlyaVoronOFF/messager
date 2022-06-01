@@ -1,25 +1,36 @@
-import { MYNAME } from "../../utils/constants";
-import { SET_NAME, TOGGLE_CHECKBOX } from "./actions";
+import { SET_NAME, TOGGLE_ADMIN, TOGGLE_CHECKBOX } from "./actions";
 
-const initialState = {
-    showName: false,
-    name: MYNAME,
-}
+const initialState = {}
 
-export function accountReducer(state = initialState, action) {
-    switch (action.type) {
+export function accountReducer(state = initialState, { type, payload }) {
+    switch (type) {
         case TOGGLE_CHECKBOX:
             {
-                return {
-                    ...state,
-                    showName: !state.showName,
+                if (state.showName !== payload) {
+                    return {
+                        ...state,
+                        showName: !state.showName,
+                    }
+                } else {
+                    return state;
+                }
+            }
+        case TOGGLE_ADMIN:
+            {
+                if (state.admin !== payload) {
+                    return {
+                        ...state,
+                        admin: !state.admin,
+                    }
+                } else {
+                    return state;
                 }
             }
         case SET_NAME:
             {
                 return {
                     ...state,
-                    name: action.payload,
+                    name: payload,
                 }
             }
         default:

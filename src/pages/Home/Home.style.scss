@@ -1,0 +1,21 @@
+.home-page {
+    display: flex;
+    flex-direction: column;
+    width: -webkit-fill-available;
+    .home-header {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 15px;
+        height: 40px;
+        h4 {
+            margin: inherit;
+        }
+        button {
+            border-radius: 15px;
+            a {
+                color: black;
+                width: 100%;
+            }
+        }
+    }
+}

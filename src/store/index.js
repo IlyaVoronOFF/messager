@@ -13,7 +13,7 @@ import { newsReducer } from "./news/reducer";
 const persistConfig = {
     key: 'root',
     storage,
-    //blacklist: ['account', 'news'],
+    blacklist: ['news'],
     //stateReconciler: hardSet
 }
 
